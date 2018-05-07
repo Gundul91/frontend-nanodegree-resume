@@ -24,15 +24,18 @@ This is empty on purpose! Your code to build the resume will go here.
     };
 
     let projects = {
-        projects: [{title: "progetto1", dates: "ieri-oggi", description: "Un progetto bello", images: ["https://pagedesignweb.com/wp-content/uploads/2017/12/Site-uri.jpg", "http://www.iuvmtech.com/wp-content/uploads/2017/10/9672-1-4.jpg"]}],
-        display: function() {}
+        projects: [{title: "progetto1", dates: "ieri-oggi", description: "Un progetto bello bello che funziona bene e di aspetto piacevole", images: ["https://pagedesignweb.com/wp-content/uploads/2017/12/Site-uri.jpg", "http://www.iuvmtech.com/wp-content/uploads/2017/10/9672-1-4.jpg"]}],
+        display: function() {
+            $('#projects').show();
+        }
     };
 
     let education = {
-        schools: [{name: "", location: "", degree: "", majors: ["", ""], dates: "", url: ""}, {name: "", location: "", degree: "", majors: ["", ""], dates: "", url: ""}],
-        onlineCourses: [{title: "", school: "", dates: "", url: ""}],
-        contacts: {mobile: "", email: "", github: "", twitter: "", location: ""},
+        schools: [{name: "scuoletta", location: "centallo", degree: "medie", majors: ["", ""], dates: "giovane-meno giovane", url: ""}, {name: "vallauri", location: "fossano", degree: "superiori", majors: ["programmazione", ""], dates: "meno giovane-grande", url: "http://www.vallauri.edu/"}],
+        onlineCourses: [{title: "FEND nanodegree", school: "Udacity", dates: "novembre 2017-agosto 2018", url: "https://eu.udacity.com/"}],
+        contacts: {mobile: "3409721192", email: "marco.gondolo@libero.it", github: "Gundul91", twitter: "@gundul1991", location: "Centallo"},
         display: function() {
+            $('#education').show();
         }
     };
 
@@ -87,6 +90,50 @@ This is empty on purpose! Your code to build the resume will go here.
 
     // projects
 
+    $("#projects").append(HTMLprojectStart);
+    HTMLprojectTitle = HTMLprojectTitle.replace("%data%", projects.projects.title);
+    $(".project-entry").append(HTMLprojectTitle);
+    HTMLprojectDates = HTMLprojectDates.replace("%data%", projects.projects.dates);
+    $(".project-entry").append(HTMLprojectDates);
+    HTMLprojectDescription = HTMLprojectDescription.replace("%data%", projects.projects.description);
+    $(".project-entry").append(HTMLprojectDescription);
+    projects.projects[0].images.forEach(function (e) {
+        let tmpHTMLprojectImage = HTMLprojectImage.replace("%data%", e);
+        $(".project-entry").append(tmpHTMLprojectImage);
+    });
 
+    projects.display();
+
+    // education
+
+    $("#education").append(HTMLschoolStart);
+    education.schools.forEach(function(e) {
+        let tmpHTMLschoolName = HTMLschoolName.replace("%data%", e.name);
+        let tmpHTMLschoolDegree = HTMLschoolDegree.replace("%data%", e.degree);
+        $(".education-entry").append(tmpHTMLschoolName + tmpHTMLschoolDegree);
+        let tmpHTMLschoolDates = HTMLschoolDates.replace("%data%", e.dates);
+        $(".education-entry").append(tmpHTMLschoolDates);
+        let tmpHTMLschoolLocation = HTMLschoolLocation.replace("%data%", e.location);
+        $(".education-entry").append(tmpHTMLschoolLocation);
+        e.majors.forEach(function(element) {
+            if(element) {
+                let tmpHTMLschoolMajor = HTMLschoolMajor.replace("%data%", element);
+                $(".education-entry").append(tmpHTMLschoolMajor);
+            }
+        });
+    });
+
+    $(".education-entry").append(HTMLonlineClasses);
+    education.onlineCourses.forEach(function(e) {
+        let tmpHTMLonlineTitle = HTMLonlineTitle.replace("%data%", e.title);
+        let tmpHTMLonlineSchool = HTMLonlineSchool.replace("%data%", e.school);
+        $(".education-entry").append(tmpHTMLonlineTitle + tmpHTMLonlineSchool);
+        let tmpHTMLonlineDates = HTMLonlineDates.replace("%data%", e.dates);
+        $(".education-entry").append(tmpHTMLonlineDates);
+        let tmpHTMLonlineURL = HTMLonlineURL.replace("%data%", e.url);
+        $(".education-entry").append(tmpHTMLonlineURL);
+    });
+
+    education.display();
 
  });
